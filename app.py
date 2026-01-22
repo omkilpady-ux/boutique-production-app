@@ -396,6 +396,7 @@ def main():
 
             col1, col2 = st.columns(2)
             with col1:
+                with col1:
     new_stage = st.selectbox(
         "New stage",
         STAGES,
@@ -419,6 +420,8 @@ def main():
         if st.button("❌ Cancel Order"):
             update_order_stage(int(selected_id), "Cancelled")
             st.success("Order cancelled successfully ❌")
+
+    
 
             with col2:
                 tailors_df = get_staff("Tailor")
