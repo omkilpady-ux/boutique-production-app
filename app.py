@@ -17,6 +17,7 @@ STAGES = [
     "Tailor Stitching",
     "Finished With Vishwa",
     "Delivered",
+    "Cancelled"
 ]
 
 
@@ -395,16 +396,29 @@ def main():
 
             col1, col2 = st.columns(2)
             with col1:
-                new_stage = st.selectbox(
-                    "New stage",
-                    STAGES,
-                    index=STAGES.index(selected_row["current_stage"])
-                    if selected_row["current_stage"] in STAGES
-                    else 0,
-                )
-                if st.button("Update Stage"):
-                    update_order_stage(int(selected_id), new_stage)
-                    st.success("Stage updated ✅\nClick 'Rerun' to refresh list.")
+    new_stage = st.selectbox(
+        "New stage",
+        STAGES,
+        index=STAGES.index(selected_row["current_stage"])
+        if selected_row["current_stage"] in STAGES
+        else 0,
+    )
+
+    if st.button("Update Stage"):
+        update_order_stage(int(selected_id), new_stage)
+        st.success("Stage updated ✅")
+
+    st.markdown("---")
+    st.warning("Danger zone")
+
+    confirm_cancel = st.checkbox(
+        f"I confirm cancelling order {selected_row.get('order_number', selected_id)}"
+    )
+
+    if confirm_cancel:
+        if st.button("❌ Cancel Order"):
+            update_order_stage(int(selected_id), "Cancelled")
+            st.success("Order cancelled successfully ❌")
 
             with col2:
                 tailors_df = get_staff("Tailor")
