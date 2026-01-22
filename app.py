@@ -6,8 +6,8 @@ from datetime import date, datetime, timedelta
 DB_PATH = "boutique.db"
 
 STAGES = [
-    "With Mom",
-    "With Dad",
+    "With Designer",
+    "With Manager",
     "At Dyeing",
     "Back From Dyeing",
     "Lining",
@@ -203,7 +203,7 @@ def insert_order(
             bool_to_int(needs_market),
             master_assigned,
             tailor_assigned if tailor_assigned else None,
-            "With Mom",
+            "With Designer",
             comments,
             now,
         ),
@@ -356,7 +356,7 @@ def main():
                     comments,
                 )
                 st.success(
-                    f"Order {order_number} saved and set to stage: With Mom ✅"
+                    f"Order {order_number} saved and set to stage: With Designer ✅"
                 )
 
     elif page == "Orders by Stage":
